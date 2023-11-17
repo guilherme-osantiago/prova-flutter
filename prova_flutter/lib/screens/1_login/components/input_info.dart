@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class InputInfo extends StatelessWidget {
   final String titulo;
-  final TextFormField textFormField;
+  final TextEditingController controller;
+  final String? Function(String?) validator;
+  final IconData icon;
+  final List<TextInputFormatter>? inputFormatters;
+  final TextInputAction? textInputAction;
 
   const InputInfo({
     required this.titulo,
-    required this.textFormField,
+    required this.controller,
+    required this.validator,
+    required this.icon,
+    this.inputFormatters,
+    this.textInputAction,
     super.key,
   });
 
@@ -25,7 +34,23 @@ class InputInfo extends StatelessWidget {
         Card(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: textFormField,
+            // child: textFormField,
+            child: TextFormField(
+              controller: controller,
+              decoration: InputDecoration(
+                icon: Icon(icon, color: Colors.black),
+                border: InputBorder.none,
+                errorBorder: const UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.red),
+                ),
+                focusedErrorBorder: const UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.red),
+                ),
+              ),
+              validator: validator,
+              inputFormatters: inputFormatters,
+              textInputAction: textInputAction ?? TextInputAction.done,
+            ),
           ),
         ),
       ],

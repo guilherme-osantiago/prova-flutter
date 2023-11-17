@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LayoutPage extends StatelessWidget {
   final Widget child;
@@ -22,9 +23,17 @@ class LayoutPage extends StatelessWidget {
           child: Column(
             children: [
               Expanded(child: child),
-              const Text(
-                'Política de Privacidade',
-                style: TextStyle(color: Colors.white),
+              GestureDetector(
+                onTap: () async {
+                  final Uri url = Uri.parse('https://www.google.com.br');
+                  if (!await launchUrl(url)) {
+                    throw Exception('Não foi possível abrir $url');
+                  }
+                },
+                child: const Text(
+                  'Política de Privacidade',
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             ],
           ),

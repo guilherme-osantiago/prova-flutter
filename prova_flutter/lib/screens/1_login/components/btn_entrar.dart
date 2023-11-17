@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 class BtnEntrar extends StatelessWidget {
+  final Function()? onPressed;
+
   const BtnEntrar({
+    this.onPressed,
     super.key,
   });
 
@@ -10,7 +13,7 @@ class BtnEntrar extends StatelessWidget {
     return Align(
       alignment: Alignment.center,
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color(0xff44BD6E),
           shape: RoundedRectangleBorder(
