@@ -4,6 +4,7 @@ import 'package:prova_flutter/api/user_api.dart';
 import 'package:prova_flutter/pages/layout_page.dart';
 import 'package:prova_flutter/screens/1_login/components/btn_entrar.dart';
 import 'package:prova_flutter/screens/1_login/components/input_info.dart';
+import 'package:prova_flutter/screens/2_infos/infos_page.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({
@@ -15,6 +16,10 @@ class LoginPage extends StatelessWidget {
     final formKey = GlobalKey<FormState>();
     TextEditingController usuarioControl = TextEditingController();
     TextEditingController senhaControl = TextEditingController();
+
+    // TODO: remover autologin
+    usuarioControl.text = "admin";
+    senhaControl.text = "admin";
 
     return LayoutPage(
       child: Padding(
@@ -79,9 +84,11 @@ class LoginPage extends StatelessWidget {
                               .showSnackBar(SnackBar(content: Text(msg)));
                           break;
                         case 1:
-                          String msg = "login feito com sucesso";
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(SnackBar(content: Text(msg)));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const InfosPage(),
+                              ));
                           break;
                         default:
                           String msg =
