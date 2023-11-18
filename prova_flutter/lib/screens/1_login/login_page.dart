@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:prova_flutter/api/user_api.dart';
 import 'package:prova_flutter/pages/layout_page.dart';
 import 'package:prova_flutter/screens/1_login/components/btn_entrar.dart';
 import 'package:prova_flutter/screens/1_login/components/input_info.dart';
@@ -12,7 +13,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
-    TextEditingController loginControl = TextEditingController();
+    TextEditingController usuarioControl = TextEditingController();
     TextEditingController senhaControl = TextEditingController();
 
     return LayoutPage(
@@ -26,7 +27,7 @@ class LoginPage extends StatelessWidget {
             children: [
               InputInfo(
                 titulo: "Usuário",
-                controller: loginControl,
+                controller: usuarioControl,
                 icon: Icons.person,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -60,17 +61,32 @@ class LoginPage extends StatelessWidget {
               ),
               const SizedBox(height: 24),
               BtnEntrar(
-                onPressed: () {
-                  loginControl.text = loginControl.text.trim();
+                onPressed: () async {
+                  usuarioControl.text = usuarioControl.text.trim();
                   senhaControl.text = senhaControl.text.trim();
 
                   if (formKey.currentState!.validate()) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(
-                            'Login: ${loginControl.text} \nSenha: ${senhaControl.text}'),
-                      ),
-                    );
+                    FocusManager.instance.primaryFocus?.unfocus();
+
+                    await login(
+                      usuarioControl.text,
+                      senhaControl.text,
+                    ).then((response) {
+                      switch (response) {
+                        case 0:
+                          String msg = "Usuário ou senha incorretos";
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(SnackBar(content: Text(msg)));
+                          break;
+                        case 1:
+                          String msg = "login feito com sucesso";
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(SnackBar(content: Text(msg)));
+                          break;
+                        default:
+                      }
+                      return null;
+                    });
                   }
                 },
               ),
