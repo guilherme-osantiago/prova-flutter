@@ -24,7 +24,7 @@ Future<int> login(String usuario, String senha) async {
 Future<Map<String, dynamic>?> _loadUsers() async {
   Map<String, dynamic> map = {};
 
-  final url = Uri.parse('$mockApi/users');
+  final url = Uri.parse(mockApi);
 
   var response = await http.get(url);
   if (response.statusCode == 200) {
