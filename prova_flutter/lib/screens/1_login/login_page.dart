@@ -84,6 +84,10 @@ class LoginPage extends StatelessWidget {
                               .showSnackBar(SnackBar(content: Text(msg)));
                           break;
                         default:
+                          String msg =
+                              "Request fracassou com o status $response";
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(SnackBar(content: Text(msg)));
                       }
                       return null;
                     });

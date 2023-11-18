@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:prova_flutter/constants.dart';
 import 'dart:async';
 import 'package:http/http.dart' as http;
@@ -9,11 +8,15 @@ Future<int> login(String usuario, String senha) async {
   int response = 0;
   Map<String, dynamic>? usersMap = await _loadUsers();
   if (usersMap != null) {
-    var loginUser = usersMap.values
-        .firstWhere((e) => e['usuario'] == usuario, orElse: () => null);
-    if (loginUser != null) {
-      if (loginUser['senha'] == senha) {
-        response = 1;
+    if (usersMap.keys.length == 1 && usersMap.containsKey('erro')) {
+      response = usersMap['erro'];
+    } else {
+      var loginUser = usersMap.values
+          .firstWhere((e) => e['usuario'] == usuario, orElse: () => null);
+      if (loginUser != null) {
+        if (loginUser['senha'] == senha) {
+          response = 1;
+        }
       }
     }
   }
@@ -34,7 +37,8 @@ Future<Map<String, dynamic>?> _loadUsers() async {
     }
     return map;
   } else {
-    debugPrint('Request fracassou com o status: ${response.statusCode}');
+    map.clear();
+    map['erro'] = response.statusCode;
     return null;
   }
 }
