@@ -9,32 +9,33 @@ abstract class _ItemStore with Store {
   ObservableList<String> items = ObservableList<String>();
 
   @observable
-  int? editThisIndex;
+  int? indexPointer;
 
   @action
 
   /// Informa o index que será editado
   ///
   /// Método criado para ser utilizado no Icon de edição
-  void editThis(int index) => editThisIndex = index;
+  void setIndexPointer(int index) => indexPointer = index;
 
   /// Após uma edição bem sucedida, chamar este método
   @action
-  void _editNothing() => editThisIndex = null;
+  void _editNothing() => indexPointer = null;
 
   @action
   void add(String item) => items.add(item);
 
+  /// Método chamado ao pressionar 'Sim' no AlertDialog de excluir item
   @action
-  void removeAt(int index) => items.removeAt(index);
+  void removeAtIndex(int index) => items.removeAt(index);
 
   /// Informa o novo valor do index
   ///
   /// Método criado para ser utilizado no TextInput
   @action
-  void editTo(String newText) {
-    items.insert(editThisIndex!, newText);
-    items.removeAt(editThisIndex! + 1);
+  void setValueOfPointer(String newText) {
+    items.insert(indexPointer!, newText);
+    items.removeAt(indexPointer! + 1);
     _editNothing();
   }
 }

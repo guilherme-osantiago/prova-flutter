@@ -51,11 +51,11 @@ class InputTexto extends StatelessWidget {
           },
           onFieldSubmitted: (value) {
             if (formKey.currentState!.validate()) {
-              if (itemStore.editThisIndex == null) {
+              if (itemStore.indexPointer == null) {
                 itemStore.add(value);
                 controller.clear();
               } else {
-                itemStore.editTo(value);
+                itemStore.setValueOfPointer(value);
                 controller.clear();
               }
             }

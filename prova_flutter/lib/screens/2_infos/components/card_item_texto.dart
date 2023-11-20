@@ -17,7 +17,7 @@ class CardItemTexto extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool isCardForEdited =
-        itemStore.editThisIndex != null && itemStore.editThisIndex == index;
+        itemStore.indexPointer != null && itemStore.indexPointer == index;
 
     return ListTile(
       title: Text(

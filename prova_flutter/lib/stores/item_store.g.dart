@@ -28,15 +28,15 @@ mixin _$ItemStore on _ItemStore, Store {
       Atom(name: '_ItemStore.editThisIndex', context: context);
 
   @override
-  int? get editThisIndex {
+  int? get indexPointer {
     _$editThisIndexAtom.reportRead();
-    return super.editThisIndex;
+    return super.indexPointer;
   }
 
   @override
-  set editThisIndex(int? value) {
-    _$editThisIndexAtom.reportWrite(value, super.editThisIndex, () {
-      super.editThisIndex = value;
+  set indexPointer(int? value) {
+    _$editThisIndexAtom.reportWrite(value, super.indexPointer, () {
+      super.indexPointer = value;
     });
   }
 
@@ -44,11 +44,11 @@ mixin _$ItemStore on _ItemStore, Store {
       ActionController(name: '_ItemStore', context: context);
 
   @override
-  void editThis(int index) {
+  void setIndexPointer(int index) {
     final _$actionInfo =
         _$_ItemStoreActionController.startAction(name: '_ItemStore.editThis');
     try {
-      return super.editThis(index);
+      return super.setIndexPointer(index);
     } finally {
       _$_ItemStoreActionController.endAction(_$actionInfo);
     }
@@ -77,22 +77,22 @@ mixin _$ItemStore on _ItemStore, Store {
   }
 
   @override
-  void removeAt(int index) {
+  void removeAtIndex(int index) {
     final _$actionInfo =
         _$_ItemStoreActionController.startAction(name: '_ItemStore.removeAt');
     try {
-      return super.removeAt(index);
+      return super.removeAtIndex(index);
     } finally {
       _$_ItemStoreActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  void editTo(String newText) {
+  void setValueOfPointer(String newText) {
     final _$actionInfo =
         _$_ItemStoreActionController.startAction(name: '_ItemStore.editAt');
     try {
-      return super.editTo(newText);
+      return super.setValueOfPointer(newText);
     } finally {
       _$_ItemStoreActionController.endAction(_$actionInfo);
     }
@@ -102,7 +102,7 @@ mixin _$ItemStore on _ItemStore, Store {
   String toString() {
     return '''
 items: ${items},
-editThisIndex: ${editThisIndex}
+editThisIndex: ${indexPointer}
     ''';
   }
 }

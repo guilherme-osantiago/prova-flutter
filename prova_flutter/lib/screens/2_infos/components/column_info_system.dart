@@ -78,10 +78,10 @@ class ColumnInfoSistemas extends StatelessWidget {
         index: index,
         onEdit: () {
           // Impede uma Edição caso esteja acontecendo uma ação de Edição
-          if (itemStore.editThisIndex == null) {
+          if (itemStore.indexPointer == null) {
             controller.text = itemStore.items[index];
             itemStore.items[index] = "[ ${controller.text} ]";
-            itemStore.editThis(index);
+            itemStore.setIndexPointer(index);
           } else {
             String msg = "Você já está editando um item";
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -92,7 +92,7 @@ class ColumnInfoSistemas extends StatelessWidget {
         },
         onDelete: () {
           // Impede uma Exclusão caso esteja acontecendo uma ação de Edição
-          if (itemStore.editThisIndex == null) {
+          if (itemStore.indexPointer == null) {
             showDialog(
               context: context,
               builder: (context) =>
@@ -117,7 +117,7 @@ class ColumnInfoSistemas extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-              itemStore.removeAt(index);
+              itemStore.removeAtIndex(index);
               Navigator.pop(context);
             },
             child: const Text("Excluir"),
