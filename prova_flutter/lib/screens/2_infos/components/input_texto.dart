@@ -1,41 +1,69 @@
 import 'package:flutter/material.dart';
+import 'package:prova_flutter/stores/item_store.dart';
 
 class InputTexto extends StatelessWidget {
-  const InputTexto({
-    super.key,
-    required this.myFocusNode,
-  });
-
   final FocusNode myFocusNode;
+  final ItemStore itemStore;
+  final TextEditingController controller;
+
+  const InputTexto({
+    required this.myFocusNode,
+    required this.itemStore,
+    required this.controller,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final formKey = GlobalKey<FormState>();
     return Card(
-      child: TextFormField(
-        decoration: const InputDecoration(
-          border: InputBorder.none,
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.red, width: 2),
+      child: Form(
+        key: formKey,
+        child: TextFormField(
+          key: UniqueKey(),
+          controller: controller,
+          decoration: const InputDecoration(
+            border: InputBorder.none,
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.black, width: 1.5),
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.red, width: 1.5),
+            ),
+            hintText: 'Digite seu texto',
+            hintStyle: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.w600,
+            ),
           ),
-          hintText: 'Digite seu texto',
-          hintStyle: TextStyle(
+          textAlign: TextAlign.center,
+          style: const TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.w600,
           ),
+          onTapOutside: (event) => myFocusNode.requestFocus(),
+          onEditingComplete: () => myFocusNode.requestFocus(),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Preencha este campo';
+            }
+            return null;
+          },
+          onFieldSubmitted: (value) {
+            if (formKey.currentState!.validate()) {
+              if (itemStore.editThisIndex == null) {
+                itemStore.add(value);
+                controller.clear();
+              } else {
+                itemStore.editTo(value);
+                controller.clear();
+              }
+            }
+            myFocusNode.requestFocus();
+          },
+          focusNode: myFocusNode,
+          maxLines: 1,
         ),
-        textAlign: TextAlign.center,
-        style: const TextStyle(
-          color: Colors.black,
-          fontWeight: FontWeight.w600,
-        ),
-        onTapOutside: (event) => myFocusNode.requestFocus(),
-        onEditingComplete: () => myFocusNode.requestFocus(),
-        onFieldSubmitted: (value) {
-          myFocusNode.requestFocus();
-          debugPrint(value);
-        },
-        focusNode: myFocusNode,
-        maxLines: 1,
       ),
     );
   }
