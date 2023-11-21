@@ -17,9 +17,10 @@ class LoginPage extends StatelessWidget {
     TextEditingController usuarioControl = TextEditingController();
     TextEditingController senhaControl = TextEditingController();
 
-    // TODO: remover autologin
-    usuarioControl.text = "admin";
-    senhaControl.text = "admin";
+    // Utilize as linhas abaixo para acesso rápido
+    // usuarioControl.text = "admin";
+    // senhaControl.text = "admin";
+    // Outras credenciais disponíveis no link do arquivo constants.dart
 
     return LayoutPage(
       child: Padding(
