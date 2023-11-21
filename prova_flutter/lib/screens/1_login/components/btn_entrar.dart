@@ -1,19 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:prova_flutter/screens/1_login/components/funct_loading.dart';
 
 class BtnEntrar extends StatelessWidget {
-  final Function()? onPressed;
-
   const BtnEntrar({
-    this.onPressed,
     super.key,
+    required this.usuarioControl,
+    required this.senhaControl,
+    required this.formKey,
   });
+
+  final TextEditingController usuarioControl;
+  final TextEditingController senhaControl;
+  final GlobalKey<FormState> formKey;
 
   @override
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.center,
       child: ElevatedButton(
-        onPressed: onPressed,
+        onPressed: () async {
+          await loading(usuarioControl, senhaControl, formKey, context);
+        },
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color(0xff44BD6E),
           shape: RoundedRectangleBorder(
