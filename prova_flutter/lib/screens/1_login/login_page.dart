@@ -16,8 +16,8 @@ class LoginPage extends StatelessWidget {
     TextEditingController senhaControl = TextEditingController();
 
     // Utilize as linhas abaixo para acesso rápido
-    usuarioControl.text = "admin";
-    senhaControl.text = "admin";
+    // usuarioControl.text = "admin";
+    // senhaControl.text = "admin";
     // Outras credenciais disponíveis no link do arquivo constants.dart
 
     return LayoutPage(
