@@ -1,4 +1,4 @@
-# prova-flutter-target-sistemas
+# target_sistemas
 
 ## 2024 (prova_estagio)
 Atividade desenvolvida para processo seletivo "Estágio Desenvolvedor - Ribeirão Preto"
